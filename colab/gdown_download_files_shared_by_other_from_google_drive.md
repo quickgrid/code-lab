@@ -1,6 +1,8 @@
-## Find usage instruction here, https://github.com/wkentaro/gdown
+## Find usage instruction here
 
-## Basic syntax,
+https://github.com/wkentaro/gdown
+
+## Basic syntax
 
 ```
 !pip install gdown
