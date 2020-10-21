@@ -7,10 +7,17 @@ from IPython.display import FileLink
 FileLink(r'processed_file.zip')
 ```
 
+This will generate a link, 
+
+```
+https://....kaggle.net/...../processed_file.zip
+```
+
+
 ## From Colab
 
 ```
-!wget "processed_file.zip"
+!wget "https://....kaggle.net/...../processed_file.zip"
 ```
 
 
