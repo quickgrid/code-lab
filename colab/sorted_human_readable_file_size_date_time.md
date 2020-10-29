@@ -1,6 +1,8 @@
 
-## 
+##  Show file size date time name
+```
 !ls -laSh
+```
 
 **Sample ouptut**
 ```
@@ -15,7 +17,9 @@ drwxr-xr-x 4 root root 4.0K Oct 29 15:01 yolov4-416
 
 
 ## Show files in directory with size
+```
 !du -a "/content/path"
+```
 
 **Sample ouptut**
 ```
