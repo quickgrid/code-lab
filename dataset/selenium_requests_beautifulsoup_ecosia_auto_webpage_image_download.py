@@ -1,6 +1,11 @@
 """
 Based on: https://github.com/ivangrov/YOLOv3-Series/blob/master/%5BPart%203%5D%20Get%20Images/get_images.py
-Requirement: lxml, selenium, beautifulsoup, requests
+Requirements: 
+    lxml
+    selenium
+    beautifulsoup
+    requests
+    chrome driver from, https://chromedriver.chromium.org/downloads
 Description: Gets all `image urls` from ecosia.org for given search query, downloads those and saves to given directory.
 """
 
