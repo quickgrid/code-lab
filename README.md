@@ -1,7 +1,7 @@
 # CodeLab
 
 
-A repository of various resources such as codes, projects, instructions, ML models, 3D models etc.
+A repository of various codes, instructions, models, notes etc.
 
 #### Use https://nbviewer.jupyter.org/ for view jupyter notebooks.
 
