@@ -1,7 +1,6 @@
 # CodeLab
 
-
-A repository of various codes, instructions, models, notes etc.
+Repository of my various AI related codes, instructions, notes etc.
 
 #### Use https://nbviewer.jupyter.org/ for view jupyter notebooks.
 
