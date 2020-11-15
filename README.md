@@ -2,7 +2,11 @@
 
 Repository of my various AI related codes, instructions, notes etc.
 
-#### Use https://nbviewer.jupyter.org/ for view jupyter notebooks.
+#### Use following for viewing jupyter notebooks,
+
+https://mybinder.org/
+
+https://nbviewer.jupyter.org/ 
 
 ### Gists
 
