@@ -1,6 +1,6 @@
 # CodeLab
 
-Repository of my various AI related codes, instructions, notes etc.
+Repository of my AI related codes, notes and various online course works etc.
 
 #### Use following for viewing jupyter notebooks,
 
