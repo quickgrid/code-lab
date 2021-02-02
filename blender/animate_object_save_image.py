@@ -1,4 +1,7 @@
 """
+1. Replace `Cube` with the object name to animate that object in various angles and render.
+2. This script can be used to generate view of object in various angles for angle regression, multi view, synthetic dataset generation etc.
+
 References, 
 https://blender.stackexchange.com/questions/73697/render-animation-with-different-angles
 https://blender.stackexchange.com/questions/67517/possible-to-add-a-plane-using-vertices-via-python
