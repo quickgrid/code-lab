@@ -4,5 +4,9 @@
 
 - In windows `nvidia-smi` can be found under, `C:\Program Files\NVIDIA Corporation\NVSMI`. In `colab` or `aws` jupyter notebooks add `!` before the command below. 
   ```
+  nvidia-smi
+  ```
+  Specific details in CSV format,
+  ```
   nvidia-smi --format=csv --query-gpu=power.draw,utilization.gpu,fan.speed,temperature.gpu,memory.used,memory.free
   ```
