@@ -20,3 +20,8 @@
   ```
   !mv my_dir/dataset/train/* another_dir/dataset/train/*
   ```
+
+- Get file and folder size in given directory,
+  ```
+  du -h "custom_dir/another_dir"
+  ```
