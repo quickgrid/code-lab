@@ -25,8 +25,6 @@ for i in range(EPOCHS):
 
         # Loss
         loss += np.square(Y_pred - Y[j]) / (2.0 * N)
-        if i % 100 == 0:
-            print(loss)
 
         # Backprop
         grad_y_pred = (2 / N) * (Y_pred - Y[j])
@@ -36,6 +34,11 @@ for i in range(EPOCHS):
     # Optimize
     w -= (w_gradient * learning_rate)
     b -= (b_gradient * learning_rate)
+
+    # Print loss
+    if i % 100 == 0:
+        print(loss)
+
 
 print("\n\n")
 print("LEARNED:")
