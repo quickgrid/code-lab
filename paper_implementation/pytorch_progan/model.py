@@ -1,6 +1,14 @@
-"""
-Code based on: https://www.youtube.com/watch?v=nkQHASviYac
-ProGAN paper: https://arxiv.org/abs/1710.10196
+"""ProGAN Model definition.
+
+Attributes:
+    factors (List): Scaling factor for filter count. Following paper mentioned filters current values scale the image
+        till 256x256 resolution rgb image instead of paper mentioned 1024x1024. Add `1/16` and `1/32` to use that.
+
+Code based on:
+https://www.youtube.com/watch?v=nkQHASviYac
+
+ProGAN paper:
+https://arxiv.org/abs/1710.10196
 """
 
 import torch
@@ -170,7 +178,22 @@ class Generator(nn.Module):
 
 class Discriminator(nn.Module):
     def __init__(self, z_dim, num_channels, img_channels):
+        """Discriminator more correctly critic in this case.
+
+        Args:
+            z_dim:
+            num_channels:
+            img_channels:
+        """
         super(Discriminator, self).__init__()
+        self.progressive_blocks, self.rgb_layers = nn.ModuleList(), nn.ModuleList()
+        self.leaky = nn.LeakyReLU(0.2)
+
+        for i in range(len(factors) - 1, 0, -1):
+            conv_in_c = int(num_channels * factors[i])
+            conv_out_c = int(num_channels * factors[i - 1])
+            self.progressive_blocks.append(ConvBlock(conv_in_c, conv_out_c, use_pixel_norm=False))
+            self.rgb_layers.append(WSConv2D(img_channels, conv_in_c, kernel_size=(1, 1), stride=(1, 1)))
 
     def fade_in(self):
         pass
