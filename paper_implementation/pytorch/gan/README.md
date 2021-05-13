@@ -13,4 +13,4 @@ self.K = 3
 ```
 
 ![Generated Fake Images](results/fake_mnist_images.png "Generated Fake Images")
-![Real MNIST Images](results/fake_mnist_images.png "MNIST real Images")
+![Real MNIST Images](results/real_mnist_images.png "MNIST real Images")
