@@ -12,5 +12,5 @@ self.num_epochs = 100
 self.K = 3 
 ```
 
-![Generated Fake Images](results/fake_mnist_images.jpg "Generated Fake Images")
-![Real MNIST Images](results/fake_mnist_images.jpg "MNIST real Images")
+![Generated Fake Images](results/fake_mnist_images.png "Generated Fake Images")
+![Real MNIST Images](results/fake_mnist_images.png "MNIST real Images")
