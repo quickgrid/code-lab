@@ -4,13 +4,28 @@ Training discriminator for K steps following the provided algorithm gives better
 
 ## Results
 
-Result of the python code with, 
+Result of the python code (not the jupyter notebook) with, 
 
 ```
+self.lr = 3e-4
+self.z_dim = 64
 self.batch_size = 128
 self.num_epochs = 100
 self.K = 3 
 ```
 
-![Generated Fake Images](results/fake_mnist_images.jpg "Generated Fake Images")
-![Real MNIST Images](results/fake_mnist_images.jpg "MNIST real Images")
+![Generated Fake Images](results/fake_mnist_images.png "Generated Fake Images")
+![Real MNIST Images](results/real_mnist_images.png "MNIST real Images")
+
+## Result Improvement
+
+- Try deeper and complex networks.
+- Use convolutional neural networks.
+- Try batch normalization, dropout, different activation funcitons.
+- Try newer GAN architectures and approaches.
+- Try augmentations, different loss functions. 
+
+## References
+
+- Original GAN paper, https://arxiv.org/abs/1406.2661
+- Code this is based on with explanation, https://www.youtube.com/watch?v=OljTVUVzPpM
