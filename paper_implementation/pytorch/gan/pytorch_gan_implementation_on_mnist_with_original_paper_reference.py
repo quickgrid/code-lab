@@ -79,9 +79,9 @@ class Trainer():
         self.lr = 3e-4
         self.z_dim = 64
         self.image_dim = 28 * 28 * 1
-        self.batch_size = 32
-        self.num_epochs = 50
-        self.K = 1  # Number of steps to train the discriminator.
+        self.batch_size = 128
+        self.num_epochs = 100
+        self.K = 3  # Number of steps to train the discriminator.
 
         # Setup models
         self.D = Discriminator(self.image_dim).to(self.device)
@@ -134,20 +134,23 @@ class Trainer():
                 current_batch_size = real.shape[0]
 
                 # Train Generator, `max E(log D(x) + log (1 - D(G(z)))`
-                noise = torch.randn((current_batch_size, self.z_dim)).to(self.device)
-                fake = self.G(noise)  # Generator output on the noise batch generating batch of flattened images.
+                for k in range(self.K):
+                    noise = torch.randn((current_batch_size, self.z_dim)).to(self.device)
+                    fake = self.G(noise)  # Generator output on the noise batch generating batch of flattened images.
 
-                D_real = self.D(real).view(-1)
-                loss_D_real = self.criterion(D_real, torch.ones_like(D_real))
-                D_fake = self.D(fake.detach()).view(-1) # Fake samples detached from computational graph for reuse.
-                loss_D_fake = self.criterion(D_fake, torch.zeros_like(D_fake))
+                    D_real = self.D(real).view(-1)
+                    loss_D_real = self.criterion(D_real, torch.ones_like(D_real))
+                    D_fake = self.D(fake.detach()).view(-1) # Fake samples detached from computational graph for reuse.
+                    loss_D_fake = self.criterion(D_fake, torch.zeros_like(D_fake))
 
-                loss_D = (loss_D_real + loss_D_fake) / 2
-                self.D.zero_grad()
-                loss_D.backward()
-                self.opt_D.step()
+                    loss_D = (loss_D_real + loss_D_fake) / 2
+                    self.D.zero_grad()
+                    loss_D.backward()
+                    self.opt_D.step()
 
                 # Train Discriminator, `min log(1 - D(G(z)))`, instead use, `max log(D(G(z)))` as mentioned above.
+                noise = torch.randn((current_batch_size, self.z_dim)).to(self.device)
+                fake = self.G(noise)  # Generator output on the noise batch generating batch of flattened images.
                 output = self.D(fake).view(-1)
                 loss_G = self.criterion(output, torch.ones_like(output))
                 self.G.zero_grad()
