@@ -27,12 +27,15 @@ class Discriminator(nn.Module):
         training examples  and generated samples. Sigmoid activation is used in last layer to get
         fake vs real probability.
 
+        As paper mentions dropout was used in training discriminator, but does not mention generator.
+
         Args:
             img_dim: Flattened input image shape.
         """
         super(Discriminator, self).__init__()
         self.D = nn.Sequential(
             nn.Linear(img_dim, 128),
+            nn.Dropout(0.2),
             nn.LeakyReLU(0.1),
             nn.Linear(128, 1),
             nn.Sigmoid()
@@ -133,7 +136,7 @@ class Trainer():
                 real = real.view(-1, 784).to(self.device)
                 current_batch_size = real.shape[0]
 
-                # Train Generator, `max E(log D(x) + log (1 - D(G(z)))`
+                # Train Generator for k steps, `max E(log D(x) + log (1 - D(G(z)))`
                 for k in range(self.K):
                     noise = torch.randn((current_batch_size, self.z_dim)).to(self.device)
                     fake = self.G(noise)  # Generator output on the noise batch generating batch of flattened images.
