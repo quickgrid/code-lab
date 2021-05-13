@@ -23,5 +23,5 @@ self.K = 3
 
 ## References
 
-Original GAN paper, https://arxiv.org/abs/1406.2661
-Code this is based on with explanation, https://www.youtube.com/watch?v=OljTVUVzPpM
+- Original GAN paper, https://arxiv.org/abs/1406.2661
+- Code this is based on with explanation, https://www.youtube.com/watch?v=OljTVUVzPpM
