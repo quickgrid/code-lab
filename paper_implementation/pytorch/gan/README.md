@@ -4,9 +4,11 @@ Training discriminator for K steps following the provided algorithm gives better
 
 ## Results
 
-Result of the python code with, 
+Result of the python code (not the jupyter notebook) with, 
 
 ```
+self.lr = 3e-4
+self.z_dim = 64
 self.batch_size = 128
 self.num_epochs = 100
 self.K = 3 
