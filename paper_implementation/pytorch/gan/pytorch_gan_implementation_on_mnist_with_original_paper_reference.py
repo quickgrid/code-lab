@@ -180,10 +180,10 @@ class Trainer():
 
 if __name__ == '__main__':
     # Setup data transformation, loading, optimizer and loss function
-    transforms = transforms.Compose([
+    transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize(mean=(0.5,), std=(0.5,))
     ])
 
-    trainer = Trainer(transforms)
+    trainer = Trainer(transform)
     trainer.train()
