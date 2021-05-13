@@ -10,11 +10,13 @@ https://mybinder.org/
 
 https://nbviewer.jupyter.org/ 
 
-### Gists
+### Others
 
-Code gists are available here, https://gist.github.com/quickgrid.
-
+- Code gists are available here, https://gist.github.com/quickgrid.
+- Various paper implementation available here, https://github.com/quickgrid/Paper-Implementations.
+- Setup guide available here, https://github.com/quickgrid/Setup-Guide.
 
 ### I have compiled a list of AI related resources here,
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=quickgrid&align=center&theme=ayu-mirage&repo=AI-Resources&show_owner=false)](https://github.com/quickgrid/AI-Resources) 
+[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=quickgrid&align=center&theme=ayu-mirage&repo=Paper-Implementations&show_owner=false)](https://github.com/quickgrid/Paper-Implementations) 
