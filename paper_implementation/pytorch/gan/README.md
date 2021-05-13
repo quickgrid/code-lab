@@ -20,6 +20,8 @@ self.K = 3
 - Try deeper and complex networks.
 - Use convolutional neural networks.
 - Try batch normalization, dropout, different activation funcitons.
+- Try newer GAN architectures and approaches.
+- Try augmentations, different loss functions. 
 
 ## References
 
