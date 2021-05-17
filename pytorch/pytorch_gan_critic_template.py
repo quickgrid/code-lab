@@ -23,7 +23,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 class Critic(nn.Module):
-    def __init__(self, img_channels, d_feature_maps):
+    def __init__(self, img_channels, feature_map_base):
         super(Critic, self).__init__()
 
     def forward(self):
@@ -31,7 +31,7 @@ class Critic(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, z_dim, img_channels, g_feature_maps):
+    def __init__(self, z_dim, img_channels, feature_map_base):
         super(Generator, self).__init__()
 
     def forward(self):
@@ -70,8 +70,8 @@ class Trainer():
         gan_dataset = CustomImageDataset(root_dir='', transform=self.get_transform())
         self.train_loader = DataLoader(gan_dataset, batch_size=self.BATCH_SIZE, shuffle=True, num_workers=self.NUM_WORKERS)
 
-        self.G = Generator(z_dim=self.Z_DIM, img_channels=self.IMAGE_CHANNELS, g_feature_maps=self.GENERATOR_FEATURE_MAP_BASE)
-        self.C = Critic(img_channels=self.IMAGE_CHANNELS, d_feature_maps=self.CRITIC_FEATURE_MAP_BASE)
+        self.G = Generator(z_dim=self.Z_DIM, img_channels=self.IMAGE_CHANNELS, feature_map_base=self.GENERATOR_FEATURE_MAP_BASE)
+        self.C = Critic(img_channels=self.IMAGE_CHANNELS, feature_map_base=self.CRITIC_FEATURE_MAP_BASE)
         self.initialize_weights(self.G)
         self.initialize_weights(self.C)
 
