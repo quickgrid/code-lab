@@ -1,6 +1,8 @@
 """Pytorch basic GAN template for generator critic.
 
-Not fully completed yet.
+Not fully completed yet. 
+To use with generator and discriminator model change critic name to discriminator. 
+Output value then should have output value between 0 and 1.
 
 Look into below for more details,
 https://github.com/quickgrid/Paper-Implementations/tree/main/pytorch
@@ -22,17 +24,33 @@ from PIL import Image
 class Critic(nn.Module):
     def __init__(self, img_channels, feature_map_base):
         super(Critic, self).__init__()
+        self.C = nn.Sequential(
 
-    def forward(self):
-        pass
+        )
+
+    def _blocks(self):
+        return nn.Sequential(
+
+        )
+
+    def forward(self, x):
+        return self.C(x)
 
 
 class Generator(nn.Module):
     def __init__(self, z_dim, img_channels, feature_map_base):
         super(Generator, self).__init__()
+        self.G = nn.Sequential(
 
-    def forward(self):
-        pass
+        )
+
+    def _blocks(self):
+        return nn.Sequential(
+
+        )
+
+    def forward(self, z):
+        return self.G(z)
 
 
 class CustomImageDataset(Dataset):
@@ -73,6 +91,14 @@ class Trainer():
         self.initialize_weights(self.G)
         self.initialize_weights(self.C)
 
+        # Tensorboard code.
+        # Generate tensor directly on device to avoid memory copy.
+        # See, https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html.
+        self.fixed_noise = torch.randn((32, self.Z_DIM, 1, 1), device=self.device)
+        self.writer_real = SummaryWriter(f"logs/real")
+        self.writer_fake = SummaryWriter(f"logs/fake")
+        self.step = 0
+
     def get_transform(self):
         return transforms.Compose([
             transforms.Resize(self.IMAGE_SIZE),
@@ -90,10 +116,10 @@ class Trainer():
 
     def train(self):
         for epoch in range(self.NUM_EPOCHS):
-            pass
-        
+            for batch_idx, (real, _) in enumerate(self.train_loader):
+                pass
+
 
 if __name__ == '__main__':
     trainer = Trainer()
     trainer.train()
-    
