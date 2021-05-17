@@ -19,9 +19,6 @@ from torch.utils.tensorboard import SummaryWriter
 from PIL import Image
 
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
 class Critic(nn.Module):
     def __init__(self, img_channels, feature_map_base):
         super(Critic, self).__init__()
@@ -57,6 +54,7 @@ class CustomImageDataset(Dataset):
 class Trainer():
     def __init__(self):
         super(Trainer, self).__init__()
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.NUM_WORKERS = 0
         self.BATCH_SIZE = 32
         self.IMAGE_SIZE = 64
@@ -91,9 +89,11 @@ class Trainer():
                 nn.init.normal_(m.weight.data, mean=mean, std=std)
 
     def train(self):
-        pass
-
+        for epoch in range(self.NUM_EPOCHS):
+            pass
+        
 
 if __name__ == '__main__':
     trainer = Trainer()
     trainer.train()
+    
