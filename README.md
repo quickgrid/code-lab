@@ -19,4 +19,3 @@ https://nbviewer.jupyter.org/
 ### I have compiled a list of AI related resources here,
 
 [![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=quickgrid&align=center&theme=ayu-mirage&repo=AI-Resources&show_owner=false)](https://github.com/quickgrid/AI-Resources) 
-[![ReadMe Card](https://github-readme-stats.vercel.app/api/pin/?username=quickgrid&align=center&theme=ayu-mirage&repo=Paper-Implementations&show_owner=false)](https://github.com/quickgrid/Paper-Implementations) 
