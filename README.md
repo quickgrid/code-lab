@@ -13,7 +13,7 @@ https://nbviewer.jupyter.org/
 ### Others
 
 - Code gists are available here, https://gist.github.com/quickgrid.
-- Various paper implementation available here, https://github.com/quickgrid/Paper-Implementations.
+- Various paper implementation available here, https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations.
 - Setup guide available here, https://github.com/quickgrid/Setup-Guide.
 
 ### I have compiled a list of AI related resources here,
