@@ -1,4 +1,4 @@
-"""Dropdown menu in KivyMD without using kv language.
+"""Dropdown menu in KivyMD using python only without using kv language.
 
 """
 
