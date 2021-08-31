@@ -14,7 +14,8 @@ class Test(MDApp):
 
         self.screen = MDScreen()
 
-        self.cust = MDRaisedButton(text="I AM A BUTTON")
+        # self.cust = MDRaisedButton(text="I AM A BUTTON")
+        self.cust = MDRaisedButton(text="I AM A BUTTON", on_release=self.custom_func)
 
         self.menu_items = [
             {
@@ -30,7 +31,7 @@ class Test(MDApp):
             width_mult=4,
         )
 
-        self.cust.on_release=self.custom_func
+        # self.cust.on_release=self.custom_func
         self.screen.add_widget(self.cust)
 
 
