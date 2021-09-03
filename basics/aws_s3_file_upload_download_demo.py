@@ -32,3 +32,7 @@ for f in os.listdir(image_upload_folder):
         print(e)
     except Exception as e:
         print(e)
+
+        
+image_upload_folder = os.path.join(os.getcwd(), 'download_images')
+client_s3.download_file(bucket_name, 'fox/fox-wild-11.jpg', os.path.join(image_upload_folder, 'fox-down.jpg'))        
