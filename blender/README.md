@@ -20,6 +20,10 @@ Make a collection for each objects or each group of objects. Create multiple `Vi
 
 Though doing all these will result in that object being rendered black. The trick to get a black and white segmentation mask for each object or object group is to use the alpha output from render layers. Connect it viewer and file output inputs. Rendering it will give black and white mask for each object groups.
 
+### Render Only Shadows
+
+Tested for EEVEE. Assign material to object and choose Principled BSDF. In `Principled BSDF` set Alpha to 0. In the material settings section `Blend Mode` to `Alpha Clip`.
+
 ### Images
 
 ![blender_dataset_generation_1](readme/blender_dataset_generation_1.png)
@@ -29,3 +33,4 @@ Though doing all these will result in that object being rendered black. The tric
 ### References:
 
 - Mist Pass, https://www.youtube.com/watch?v=PzQMgbSEynU
+- EEVEE Render only shadows, https://b3d.interplanety.org/en/how-to-render-only-the-objects-shadow-in-eevee/
