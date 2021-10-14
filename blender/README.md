@@ -20,6 +20,12 @@ Make a collection for each objects or each group of objects. Create multiple `Vi
 
 Though doing all these will result in that object being rendered black. The trick to get a black and white segmentation mask for each object or object group is to use the alpha output from render layers. Connect it viewer and file output inputs. Rendering it will give black and white mask for each object groups.
 
+### Images
+
+![blender_dataset_generation_1](readme/blender_dataset_generation_1.png)
+![blender_dataset_generation_2](readme/blender_dataset_generation_2.png)
+![blender_dataset_generation_3](readme/blender_dataset_generation_3.png)
+
 ### References:
 
 - Mist Pass, https://www.youtube.com/watch?v=PzQMgbSEynU
