@@ -1,12 +1,14 @@
-"""This implementation does not work yet.
+"""Partially working but epoch is wrong. Currently only reads a batch at random per epoch.
 
 References
     - https://github.com/fangpin/siamese-pytorch
     - https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
     - https://discuss.pytorch.org/t/dataloader-for-a-siamese-model-with-concatdataset/66085
+    - https://keras.io/examples/vision/siamese_network/
+    - https://keras.io/examples/vision/siamese_contrastive/
 """
 import os
-from typing import Dict, Union
+from typing import Dict, Union, Tuple
 
 import torch
 import torch.nn as nn
@@ -39,9 +41,9 @@ class SiameseModel(nn.Module):
             nn.Linear(in_features=256 * 2 * 2, out_features=4096),
             nn.Sigmoid(),
         )
+        self.embedding_dim = 128
         self.output = nn.Sequential(
-            nn.Linear(in_features=4096, out_features=num_classes),
-            nn.Softmax(),
+            nn.Linear(in_features=4096, out_features=128),
         )
 
     def forward_single_image(self, x: Tensor) -> Tensor:
@@ -50,12 +52,15 @@ class SiameseModel(nn.Module):
         x = self.embedding_layer(x)
         return x
 
-    def forward(self, x1: Tensor, x2: Tensor) -> Tensor:
-        x1 = self.forward_single_image(x1)
-        x2 = self.forward_single_image(x2)
-        distance_vector = torch.abs(x1 - x2)
-        out = self.output(distance_vector)
-        return out
+    def forward(self, achor: Tensor, positive: Tensor, negative: Tensor) -> Tuple[Tensor, Tensor, Tensor]:
+        achor_embedding = self.forward_single_image(achor)
+        positive_embedding = self.forward_single_image(positive)
+        negative_embedding = self.forward_single_image(negative)
+        return (
+            achor_embedding,
+            positive_embedding,
+            negative_embedding
+        )
 
 
 class SiameseDataset(Dataset):
@@ -100,6 +105,8 @@ class SiameseDataset(Dataset):
             positive_image_idx = np.random.randint(low=0, high=anchor_dir_file_count)
 
         negative_image_folder_idx = np.random.randint(low=0, high=self.class_names_len)
+        while idx == negative_image_folder_idx:
+            negative_image_folder_idx = np.random.randint(low=0, high=self.class_names_len)
         negative_dir_class_name = self.class_idx_to_name_map[negative_image_folder_idx]
         negative_dir_file_count = self.class_name_file_count_list[negative_dir_class_name]
         negative_image_idx = np.random.randint(low=0, high=negative_dir_file_count)
@@ -137,9 +144,6 @@ class SiameseDataset(Dataset):
             'anchor_image': anchor_image,
             'postive_image': postive_image,
             'negative_image': negative_image,
-            'anchor_label': anchor_label,
-            'positive_label': positive_label,
-            'negative_label': negative_label,
         }
         return sample
 
@@ -157,6 +161,24 @@ def contrastive_loss_fn(margin: float):
     return contrastive_loss
 
 
+def calculate_distances(
+        anchor_embedding: Tensor,
+        positive_embedding: Tensor,
+        negative_embedding: Tensor
+) -> Tuple[Tensor, Tensor]:
+    ap_distance = torch.sum(torch.square(anchor_embedding - positive_embedding), dim=-1)
+    an_distance = torch.sum(torch.square(anchor_embedding - negative_embedding), dim=-1)
+    return ap_distance, an_distance
+
+
+def triplet_loss_fn(margin: float):
+    def triplet_loss(ap_distance: Tensor, an_distance: Tensor) -> Tensor:
+        return torch.mean(
+            torch.maximum(ap_distance - an_distance + margin, torch.zeros_like(ap_distance))
+        )
+    return triplet_loss
+
+
 class Trainer:
     def __init__(
             self,
@@ -164,7 +186,7 @@ class Trainer:
             batch_size: int = 8,
             num_workers: int = 4,
             learning_rate: float = 0.0001,
-            num_epochs: int = 10,
+            num_epochs: int = 1000,
     ):
         super(Trainer, self).__init__()
         self.num_epochs = num_epochs
@@ -185,73 +207,60 @@ class Trainer:
         self.num_classes = len(os.listdir(dataset_path))
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = SiameseModel(num_classes=self.num_classes).to(self.device)
-        self.loss_fn = contrastive_loss_fn(margin=0.05)
+        self.loss_fn = triplet_loss_fn(margin=0.05)
         self.optimizer_fn = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
 
     def train(self) -> None:
         for epoch in range(self.num_epochs):
-            with tqdm(self.train_loader) as tqdm_epoch:
-                for batch_idx, data in enumerate(tqdm_epoch):
-                    # print(batch_idx, data)
-                    anchor_image = data['anchor_image']
-                    postive_image = data['postive_image']
-                    negative_image = data['negative_image']
-                    anchor_label = data['anchor_label']
-                    positive_label = data['positive_label']
-                    negative_label = data['negative_label']
+            train_loss = 0.0
+            for batch_idx, data in enumerate(self.train_loader):
+            # with tqdm(self.train_loader) as tqdm_epoch:
+            #     for batch_idx, data in enumerate(tqdm_epoch):
+                    anchor_image_batch = data['anchor_image']
+                    postive_image_batch = data['postive_image']
+                    negative_image_batch = data['negative_image']
 
-                    anchor_image = anchor_image.to(self.device)
-                    postive_image = postive_image.to(self.device)
-                    negative_image = negative_image.to(self.device)
+                    anchor_image_batch = anchor_image_batch.to(self.device)
+                    postive_image_batch = postive_image_batch.to(self.device)
+                    negative_image_batch = negative_image_batch.to(self.device)
 
-                    print(anchor_image.shape)
-                    print(postive_image.shape)
-                    print(negative_image.shape)
+                    anchor_embedding, positive_embedding, negative_embedding = self.model.forward(
+                        anchor_image_batch,
+                        postive_image_batch,
+                        negative_image_batch,
+                    )
+                    ap_distance, an_distance = calculate_distances(
+                        anchor_embedding,
+                        positive_embedding,
+                        negative_embedding
+                    )
 
-                    # onehot_label1 = F.one_hot(label1)
-                    # onehot_label2 = F.one_hot(label2)
+                    loss = self.loss_fn(ap_distance, an_distance)
+                    self.optimizer_fn.zero_grad()
+                    loss.backward()
+                    self.optimizer_fn.step()
 
-                    positive_output = self.model.forward(anchor_image, postive_image)
-                    negative_output = self.model.forward(anchor_image, negative_image)
-                    print(positive_output)
-                    print(negative_output)
+                    train_loss += loss.item() * anchor_image_batch.size(0)
 
-                    positive_predicted_index = torch.argmax(positive_output, dim=0)
-                    negative_predicted_index = torch.argmax(negative_output, dim=0)
+                    # fig, ax = plt.subplots(1, 3)
+                    # ax[0].imshow(np.transpose(anchor_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                    # ax[1].imshow(np.transpose(postive_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                    # ax[2].imshow(np.transpose(negative_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                    # plt.show()
 
-                    print(positive_predicted_index)
-                    print(negative_predicted_index)
+            train_loss = train_loss / len(self.train_loader)
+            print('Epoch: {} \tTraining Loss: {:.6f}'.format(
+                epoch,
+                train_loss
+            ))
 
-                    # predicted_index_onehot = F.one_hot(predicted_index)
-                    #
-                    # label_merging_tensor = torch.zeros_like(data['same_type'], dtype=torch.long)
-                    # print(predicted_index)
-                    # print(label_merging_tensor)
-                    # print(data['same_type'])
-                    # # print(onehot_label1)
-                    # # print(onehot_label2)
-                    # print('%' * 60)
-                    # for i in range(len(data['same_type'])):
-                    #     if data['same_type'][i]:
-                    #         label_merging_tensor[i] = label1[i]
-                    #     else:
-                    #         label_merging_tensor[i] = label2[i]
-                    #
-                    #
-                    # print(label_merging_tensor)
-                    # print(predicted_index_onehot)
-                    # label_merging_tensor = F.one_hot(label_merging_tensor, num_classes=self.num_classes)
-                    # loss = self.loss_fn(y_true=label_merging_tensor, y_pred=predicted_index_onehot)
-                    #
-                    # self.optimizer_fn.zero_grad()
-                    # loss.backward()
-                    # self.optimizer_fn.step()
-
-                    fig, ax = plt.subplots(1, 3)
-                    ax[0].imshow(np.transpose(anchor_image[0].detach().cpu().numpy(), (1, 2, 0)))
-                    ax[1].imshow(np.transpose(postive_image[0].detach().cpu().numpy(), (1, 2, 0)))
-                    ax[2].imshow(np.transpose(negative_image[0].detach().cpu().numpy(), (1, 2, 0)))
-                    plt.show()
+            if epoch % 10 == 0:
+                torch.save({
+                    'epoch': epoch,
+                    'model_state_dict': self.model.state_dict(),
+                    'optimizer_state_dict': self.optimizer_fn.state_dict(),
+                    'loss': train_loss,
+                }, f'checkpoints/checkpoint_{epoch}.pt')
 
 
 if __name__ == '__main__':
