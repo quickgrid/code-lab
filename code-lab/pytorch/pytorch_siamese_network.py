@@ -13,18 +13,16 @@ from typing import Dict, Union, Tuple
 import torch
 import torch.nn as nn
 from torch import Tensor
-import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from PIL import Image
 from fire import Fire
 import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 
 class SiameseModel(nn.Module):
-    def __init__(self, num_classes: int) -> None:
+    def __init__(self, embedding_dim: int) -> None:
         super(SiameseModel, self).__init__()
         self.base_network = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1)),
@@ -41,21 +39,20 @@ class SiameseModel(nn.Module):
             nn.Linear(in_features=256 * 2 * 2, out_features=4096),
             nn.Sigmoid(),
         )
-        self.embedding_dim = 128
         self.output = nn.Sequential(
-            nn.Linear(in_features=4096, out_features=128),
+            nn.Linear(in_features=2048, out_features=embedding_dim),
         )
 
-    def forward_single_image(self, x: Tensor) -> Tensor:
+    def forward_single_minibatch(self, x: Tensor) -> Tensor:
         x = self.base_network(x)
         x = self.flatten(x)
         x = self.embedding_layer(x)
         return x
 
     def forward(self, achor: Tensor, positive: Tensor, negative: Tensor) -> Tuple[Tensor, Tensor, Tensor]:
-        achor_embedding = self.forward_single_image(achor)
-        positive_embedding = self.forward_single_image(positive)
-        negative_embedding = self.forward_single_image(negative)
+        achor_embedding = self.forward_single_minibatch(achor)
+        positive_embedding = self.forward_single_minibatch(positive)
+        negative_embedding = self.forward_single_minibatch(negative)
         return (
             achor_embedding,
             positive_embedding,
@@ -64,7 +61,11 @@ class SiameseModel(nn.Module):
 
 
 class SiameseDataset(Dataset):
-    def __init__(self, root_dir: str, transform: transforms = None) -> None:
+    def __init__(
+            self,
+            root_dir: str,
+            transform: transforms = None
+    ) -> None:
         self.root_dir = root_dir
         self.transform = transform
 
@@ -87,15 +88,10 @@ class SiameseDataset(Dataset):
     def __len__(self) -> int:
         return self.class_names_len
 
-    def __getitem__(self, idx: int) -> Dict[str, Union[Image.Image, int, bool]]:
-        """In single step get anchor, positive and negative.
-
-        Args:
-            idx: A sub folder index.
-
-        Returns:
-            A sample of data containing anchor, positive, negative image and their labels.
-        """
+    def __getitem__(
+            self,
+            idx: int
+    ) -> Dict[str, Union[Image.Image, int, bool]]:
         anchor_dir_class_name = self.class_idx_to_name_map[idx]
         anchor_dir_file_count = self.class_name_file_count_list[anchor_dir_class_name]
 
@@ -187,6 +183,7 @@ class Trainer:
             num_workers: int = 4,
             learning_rate: float = 0.0001,
             num_epochs: int = 1000,
+            embedding_dim: int = 128,
     ):
         super(Trainer, self).__init__()
         self.num_epochs = num_epochs
@@ -206,47 +203,45 @@ class Trainer:
 
         self.num_classes = len(os.listdir(dataset_path))
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model = SiameseModel(num_classes=self.num_classes).to(self.device)
-        self.loss_fn = triplet_loss_fn(margin=0.05)
+        self.model = SiameseModel(embedding_dim=embedding_dim).to(self.device)
+        self.loss_fn = triplet_loss_fn(margin=0.5)
         self.optimizer_fn = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
 
     def train(self) -> None:
         for epoch in range(self.num_epochs):
             train_loss = 0.0
             for batch_idx, data in enumerate(self.train_loader):
-            # with tqdm(self.train_loader) as tqdm_epoch:
-            #     for batch_idx, data in enumerate(tqdm_epoch):
-                    anchor_image_batch = data['anchor_image']
-                    postive_image_batch = data['postive_image']
-                    negative_image_batch = data['negative_image']
+                anchor_image_batch = data['anchor_image']
+                postive_image_batch = data['postive_image']
+                negative_image_batch = data['negative_image']
 
-                    anchor_image_batch = anchor_image_batch.to(self.device)
-                    postive_image_batch = postive_image_batch.to(self.device)
-                    negative_image_batch = negative_image_batch.to(self.device)
+                anchor_image_batch = anchor_image_batch.to(self.device)
+                postive_image_batch = postive_image_batch.to(self.device)
+                negative_image_batch = negative_image_batch.to(self.device)
 
-                    anchor_embedding, positive_embedding, negative_embedding = self.model.forward(
-                        anchor_image_batch,
-                        postive_image_batch,
-                        negative_image_batch,
-                    )
-                    ap_distance, an_distance = calculate_distances(
-                        anchor_embedding,
-                        positive_embedding,
-                        negative_embedding
-                    )
+                anchor_embedding, positive_embedding, negative_embedding = self.model.forward(
+                    anchor_image_batch,
+                    postive_image_batch,
+                    negative_image_batch,
+                )
+                ap_distance, an_distance = calculate_distances(
+                    anchor_embedding,
+                    positive_embedding,
+                    negative_embedding
+                )
 
-                    loss = self.loss_fn(ap_distance, an_distance)
-                    self.optimizer_fn.zero_grad()
-                    loss.backward()
-                    self.optimizer_fn.step()
+                loss = self.loss_fn(ap_distance, an_distance)
+                self.optimizer_fn.zero_grad()
+                loss.backward()
+                self.optimizer_fn.step()
 
-                    train_loss += loss.item() * anchor_image_batch.size(0)
+                train_loss += loss.item() * anchor_image_batch.size(0)
 
-                    # fig, ax = plt.subplots(1, 3)
-                    # ax[0].imshow(np.transpose(anchor_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
-                    # ax[1].imshow(np.transpose(postive_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
-                    # ax[2].imshow(np.transpose(negative_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
-                    # plt.show()
+                # fig, ax = plt.subplots(1, 3)
+                # ax[0].imshow(np.transpose(anchor_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                # ax[1].imshow(np.transpose(postive_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                # ax[2].imshow(np.transpose(negative_image_batch[0].detach().cpu().numpy(), (1, 2, 0)))
+                # plt.show()
 
             train_loss = train_loss / len(self.train_loader)
             print('Epoch: {} \tTraining Loss: {:.6f}'.format(
@@ -254,22 +249,16 @@ class Trainer:
                 train_loss
             ))
 
-            if epoch % 10 == 0:
+            if epoch % 50 == 0:
                 torch.save({
                     'epoch': epoch,
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer_fn.state_dict(),
-                    'loss': train_loss,
                 }, f'checkpoints/checkpoint_{epoch}.pt')
 
 
 if __name__ == '__main__':
-    # siamese_network = SiameseModel()
-    # print(siamese_network)
-    # print(list(siamese_network.parameters()))
-
     # Fire(Trainer)
-
     trainer = Trainer(
         dataset_path='../dataset/mnist_sample'
     )
