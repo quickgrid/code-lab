@@ -6,7 +6,7 @@ The implementation does not exactly match the paper. Gatys 2016, paper goes into
 
 ## Results
 
-<img src="https://raw.githubusercontent.com/quickgrid/AI-Resources/master/paper-implementations/pytorch/neural-style-transfer/data/style_image.png" width="256" height="256"> <img src="https://raw.githubusercontent.com/quickgrid/AI-Resources/master/paper-implementations/pytorch/neural-style-transfer/data/content_image.png" width="256" height="256"> <img src="https://raw.githubusercontent.com/quickgrid/AI-Resources/master/paper-implementations/pytorch/neural-style-transfer/generated.png" width="256" height="256">
+<img src="data/style_image.png" width="256" height="256"> <img src="data/content_image.png" width="256" height="256"> <img src="generated.png" width="256" height="256">
 
 
 
