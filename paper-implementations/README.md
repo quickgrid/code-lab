@@ -3,47 +3,44 @@
 Implementation of various AI papers with related sections, notes, comments etc.
 <br>
 
-## Table of Contents
 
 <!--
+## Table of Contents
+
 - [Table of Contents](#table-of-contents)
   * `# Pytorch`
     + Generative Adverserial Networks (GAN)
-      - [GAN](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/gan)
-      - [DCGAN](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/dcgan) 
-      - [WGAN](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/wgan) 
-      - [WGAN-GP](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/wgan-gp)
-      - [ProGAN](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/progan)
+      - [GAN](pytorch/gan)
+      - [DCGAN](pytorch/dcgan) 
+      - [WGAN](pytorch/wgan) 
+      - [WGAN-GP](pytorch/wgan-gp)
+      - [ProGAN](pytorch/progan)
     + Activation Functions
-      - [SIREN](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/siren)
+      - [SIREN](pytorch/siren)
   * `# Keras`
     + Object Detection
-      - [RetinaNet](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/keras/retinanet)
+      - [RetinaNet](keras/retinanet)
 -->
 
-- [Table of Contents](#table-of-contents)
-  * [`# Pytorch`](#-pytorch)
-  * [`# Keras`](#-keras)
-
-## `# Pytorch`
+## Pytorch
 
 | Topic | Code |
 | --- | --- |
-| **Generative Adverserial Networks (GAN)** | [Generative Adversarial Networks (GAN)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/gan) |
-|  | [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (DCGAN)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/dcgan) |
-|  | [Wasserstein GAN (WGAN)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/wgan) |
-|  | [Improved Training of Wasserstein GANs (WGAN-GP)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/wgan-gp) |
-|  | [PROGRESSIVE GROWING OF GANS FOR IMPROVED QUALITY, STABILITY, AND VARIATION (ProGAN)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/progan) |
+| **Generative Adverserial Networks (GAN)** | [Generative Adversarial Networks (GAN)](pytorch/gan) |
+|  | [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (DCGAN)](pytorch/dcgan) |
+|  | [Wasserstein GAN (WGAN)](pytorch/wgan) |
+|  | [Improved Training of Wasserstein GANs (WGAN-GP)](pytorch/wgan-gp) |
+|  | [PROGRESSIVE GROWING OF GANS FOR IMPROVED QUALITY, STABILITY, AND VARIATION (ProGAN)](pytorch/progan) |
 |  |  |
-| **Image Segmentation** | [U-Net: Convolutional Networks for Biomedical Image Segmentation (UNet)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/u-net) |
+| **Image Segmentation** | [U-Net: Convolutional Networks for Biomedical Image Segmentation (UNet)](pytorch/u-net) |
 |  |  |
-| **Implicit Representations** | [Implicit Neural Representations with Periodic Activation Functions (SIREN)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/pytorch/siren) |
+| **Implicit Representations** | [Implicit Neural Representations with Periodic Activation Functions (SIREN)](pytorch/siren) |
 
-## `# Keras`
+## Keras
 
 | Topic | Code |
 | --- | --- |
-| **Object Detection** | [Focal Loss for Dense Object Detection (RetinaNet)](https://github.com/quickgrid/AI-Resources/tree/master/paper-implementations/keras/retinanet) |
+| **Object Detection** | [Focal Loss for Dense Object Detection (RetinaNet)](keras/retinanet) |
 |  |  |
 
 
