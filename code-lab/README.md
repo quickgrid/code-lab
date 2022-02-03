@@ -1,6 +1,6 @@
 # CodeLab
 
-Repository of my AI related codes, notes and various online course works etc. Some notebooks are quite large and may take a long time to load in nbviewer.
+Repository of my AI related codes. Some notebooks may take a long time to load in nbviewer.
 
 
 
