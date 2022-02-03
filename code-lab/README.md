@@ -9,7 +9,3 @@ Repository of my AI related codes, notes and various online course works etc. So
 https://mybinder.org/
 
 https://nbviewer.jupyter.org/ 
-
-#### Code gists are available here,
-
-https://gist.github.com/quickgrid.
