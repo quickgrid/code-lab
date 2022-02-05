@@ -37,12 +37,14 @@ Implementation of various AI papers with related sections, notes, comments etc.
 |  |  |
 | **Implicit Representations** | [Implicit Neural Representations with Periodic Activation Functions (SIREN)](pytorch/siren) |
 
+<!--
 ## Keras
 
 | Topic | Code |
 | --- | --- |
 | **Object Detection** | [Focal Loss for Dense Object Detection (RetinaNet)](keras/retinanet) |
 |  |  |
+-->
 
 
 ## Papers of Interest
