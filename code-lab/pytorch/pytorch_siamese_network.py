@@ -2,6 +2,7 @@
 
 TODO
     - For contrastive and triplet loss data make pairings at `init` of dataset as list or dictionary.
+    - When making paired training set limit it `N` which can be total number of images in dataset.
 
 References
     - https://github.com/fangpin/siamese-pytorch
