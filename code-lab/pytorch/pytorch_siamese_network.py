@@ -1,5 +1,8 @@
 """Partially working but epoch is wrong. Currently only reads a batch at random per epoch.
 
+TODO
+    - For contrastive and triplet loss data make pairings at `init` of dataset as list or dictionary.
+
 References
     - https://github.com/fangpin/siamese-pytorch
     - https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
