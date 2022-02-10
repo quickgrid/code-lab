@@ -10,7 +10,7 @@ I used training sample of following mnist dataset, https://www.kaggle.com/scolia
 
 ## Results
 
-![triplet images](results/mnist_triplet.png "mnist_triplet")
+<img src="results/mnist_triplet.png" width=60% height=60%>
 
 
 ## TODO
