@@ -6,9 +6,11 @@ Current implementation is tested on `MNIST`. `ResNet18` is backbone for transfer
 
 This is an extension of [siamese network implementation](https://github.com/quickgrid/code-lab/blob/master/code-lab/pytorch/pytorch_siamese_network.py) I tried.
 
+I used training sample of following mnist dataset, https://www.kaggle.com/scolianni/mnistasjpg.
+
 ## Results
 
-
+![triplet images](results/mnist_triplet.png "mnist_triplet")
 
 
 ## TODO
