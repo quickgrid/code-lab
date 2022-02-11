@@ -1,5 +1,7 @@
 """Partially working but epoch is wrong. Currently only reads a batch at random per epoch.
 
+I have implemented better version of this code here, https://github.com/quickgrid/paper-implementations.
+
 TODO
     - For contrastive and triplet loss data make pairings at `init` of dataset as list or dictionary.
     - When making paired training set limit it `N` which can be total number of images in dataset.
@@ -10,6 +12,8 @@ References
     - https://discuss.pytorch.org/t/dataloader-for-a-siamese-model-with-concatdataset/66085
     - https://keras.io/examples/vision/siamese_network/
     - https://keras.io/examples/vision/siamese_contrastive/
+    - https://github.com/quickgrid/paper-implementations/blob/main/pytorch/siamese-triplet-loss
+    - https://github.com/quickgrid/paper-implementations/blob/main/pytorch/siamese-contrastive-loss
 """
 import os
 from typing import Dict, Union, Tuple
