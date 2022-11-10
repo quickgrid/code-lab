@@ -2,7 +2,7 @@
 
 Repository of my AI related codes. Some notebooks may take a long time to load in nbviewer.
 
-`old` folder is for codes that may not be updated and not of my interest.
+Some files are moved to `old` folder. It is for codes that may not be updated anymore, out of date or not in my interest.
 
 
 
