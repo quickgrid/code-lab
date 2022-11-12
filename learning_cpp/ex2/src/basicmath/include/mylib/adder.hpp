@@ -1,6 +1,9 @@
-#pragma once
+#ifndef EX2_SRC_BASICMATH_INCLUDE_MYLIB_ADDER_HPP_
+#define EX2_SRC_BASICMATH_INCLUDE_MYLIB_ADDER_HPP_
 
 namespace bmath
 {
     int add(int a, int b);
 }
+
+#endif EX2_SRC_BASICMATH_INCLUDE_MYLIB_ADDER_HPP_
