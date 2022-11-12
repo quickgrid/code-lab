@@ -6,3 +6,4 @@ namespace bmath{
         return a + b;
     }
 }
+
