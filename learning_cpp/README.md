@@ -47,3 +47,29 @@ The build folder will contain `myapp.sln`, `myapp.vcxproj` etc. `myapp.sln` can 
 In `build/Debug` folder `myapp.exe` will be available.
 
 > ./myapp.exe
+
+### Compiling with g++ directly
+
+Compiling `c++` files with `g++` compiler directly and generating executable.
+
+> g++ -O -c myapp.cpp -o myapp
+
+Generate assembly files of various compiler optimization levels for comparison.
+
+> g++ -O3 -S -c myapp.cpp -o myapp_o3.s
+> 
+> g++ -O -S -c myapp.cpp -o myapp_o.s
+
+Save intermediate files. It will save `*.ii`, `*.o`, `*.s`, `*.exe` files.
+
+> g++ -O3 --save-temps myapp.cpp -o myapp
+
+Define compilation c++ version.
+
+> g++ -O2 -std=c++17  myapp.cpp -o myapp
+
+Disassemble object code with `objdump`. First the object file needs to be generated if not available then disassemble.
+
+> g++ -O3 -c -std=c++17  myapp.cpp
+
+> objdump -d myapp.o
