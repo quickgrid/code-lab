@@ -20,7 +20,7 @@ Finally using the following command will generate executable file. Since `myapp`
 
 > ninja myapp
 
-Now it can be run with following command.
+In build folder `myapp.exe` will be generated. Now it can be run with following command.
 
 > ./myapp.exe
 
@@ -29,3 +29,21 @@ Now it can be run with following command.
 For compilation with `g++`. Rest of the process to compile and run is same.
 
 > cmake -DCMAKE_BUILD_TYPE:STRING=Debug "-DCMAKE_C_COMPILER:FILEPATH=C:\mingw64\bin\gcc.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:\mingw64\bin\g++.exe" -SC:\GitHub\CodeLab\learning_cpp\ex1 -BC:\GitHub\CodeLab\learning_cpp\ex1\build -G Ninja
+
+### Visual Studio Project with Visual C++ Compiler
+
+Setting `cl.exe` path manually. Replace `YOUR_VERSION` with visual c++ compiler version.
+
+> cmake -DCMAKE_BUILD_TYPE:STRING=Debug "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" -SC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1 -BC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1\build
+
+Without setting manually.
+
+> cmake -DCMAKE_BUILD_TYPE:STRING=Debug -SC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1 -BC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1\build
+
+The build folder will contain `myapp.sln`, `myapp.vcxproj` etc. `myapp.sln` can be opened in visual studio and compile from it. The following command will compile and generate executable from terminal. 
+
+> cmake --build ./build
+
+In `build/Debug` folder `myapp.exe` will be available.
+
+> ./myapp.exe
