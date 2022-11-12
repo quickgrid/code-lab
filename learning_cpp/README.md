@@ -73,3 +73,14 @@ Disassemble object code with `objdump`. First the object file needs to be genera
 > g++ -O3 -c -std=c++17  myapp.cpp
 
 > objdump -d myapp.o
+
+# ex2
+
+This project contains with multiple c++ source, header files in various directory. This project directory was structured somewhat following opencv source code. This example uses namespaces to prevent collision with other libraries, includes headers from include directory and manual code testing with assertion etc. 
+
+### Compile C++ Files with Header File in Different Directory with g++
+
+This will include header files from different directories like parent, sibling or others. All c++ files called needs to be passed for compilation. Here, `src\basicmath\include` is path to the header files used.
+
+> g++ -O3 -std=c++17 "-Isrc\basicmath\include" src\basicmath\tests\test_basicmath.cpp src\basicmath\src\adder.cpp -o myapp
+
