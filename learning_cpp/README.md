@@ -4,6 +4,9 @@ Notes of my attempts to learn C++ more in depth.
 
 For windows LLVM, MinGW64, ninja, cmake, visual studio, vscode etc. installed or extracted to folder. Also system environment variables path set to path of `*.exe` files. Not all examples require all tools.
 
+Code structure is vscode visual studio clang format with attempt to follow google style guide where possible. 
+Header guard follows google style guide `<PROJECT>_<PATH>_<FILE>_H_` full path from project root.
+
 # ex1
 
 Run these from command line. VSCode editor terminal is a good for editing and testing at the same time.
@@ -91,3 +94,12 @@ This will include header files from different directories like parent, sibling o
 Example of passing by reference and printing address. It includes multiple header and c++ files in different directories. Though one of the c++ files is not used for executable.
 
 > g++ -O3 -std=c++17 "-Isrc\basicmath\include" "-Isrc\basicmath\src" src\basicmath\tests\test_basicmath.cpp src\basicmath\src\adder.cpp src\basicmath\src\type_utils.cpp -o myapp
+
+# ex4
+
+### Multiple C++ File in Same Namespace and Dynamic Array Allocation, Delete, Vector
+
+Functions defined in both `array_utils.hpp`, `adder.hpp` share same namespace `bmath`. Usage of [fixed width integer types](https://en.cppreference.com/w/cpp/types/integer) in loop and unsigned variable. Dynamic memory array allocation, release and equivalent vector insertion function.
+
+> g++ -O2 -std=c++17 "-Isrc\basicmath\include" src\basicmath\tests\test_array_declaration.cpp -o 
+myapp src\basicmath\src\array_utils.cpp
