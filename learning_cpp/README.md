@@ -84,3 +84,10 @@ This will include header files from different directories like parent, sibling o
 
 > g++ -O3 -std=c++17 "-Isrc\basicmath\include" src\basicmath\tests\test_basicmath.cpp src\basicmath\src\adder.cpp -o myapp
 
+# ex3
+
+### Compiling Multiple Header, C++ files in Different Path and Pass by Reference
+
+Example of passing by reference and printing address. It includes multiple header and c++ files in different directories. Though one of the c++ files is not used for executable.
+
+> g++ -O3 -std=c++17 "-Isrc\basicmath\include" "-Isrc\basicmath\src" src\basicmath\tests\test_basicmath.cpp src\basicmath\src\adder.cpp src\basicmath\src\type_utils.cpp -o myapp
