@@ -2,5 +2,5 @@
 
 
 namespace bmath{
-    int add(int a, int b);
+    int add(const int& a, const int& b);
 }
