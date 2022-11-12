@@ -1,6 +1,6 @@
 #pragma once
 
-
-namespace bmath{
+namespace bmath
+{
     int add(int a, int b);
 }
