@@ -1,8 +1,6 @@
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
-    cout << "App runs.\n";
+    std::cout << "App runs.\n";
 }

@@ -2,8 +2,6 @@
 #include <typeinfo>
 #include <vector>
 
-using namespace std;
-
 namespace bmath
 {
     void test_1d_array_dynamic_allocation(const unsigned int &array_size)
@@ -16,19 +14,19 @@ namespace bmath
 
         for (uint_fast8_t k = 0; k < array_size; ++k)
         {
-            cout << *(arr + k) << "\n";
-            cout << (arr + k) << "\n";
-            cout << typeid(k).name() << ", " << sizeof(k) << "\n";
-            cout << "\n";
+            std::cout << *(arr + k) << "\n";
+            std::cout << (arr + k) << "\n";
+            std::cout << typeid(k).name() << ", " << sizeof(k) << "\n";
+            std::cout << "\n";
         }
 
         delete[] arr;
-        cout << "Done\n";
+        std::cout << "Done\n";
     }
 
     void test_vector_allocation(const unsigned int &array_size)
     {
-        vector<int> arr;
+        std::vector<int> arr;
         for (uint_fast8_t k = 0; k < array_size; ++k)
         {
             arr.push_back(k * k);
@@ -36,12 +34,12 @@ namespace bmath
 
         for (const auto &k : arr)
         {
-            cout << k << "\n";
-            cout << &k << "\n";
-            cout << typeid(k).name() << ", " << sizeof(k) << "\n";
-            cout << "\n";
+            std::cout << k << "\n";
+            std::cout << &k << "\n";
+            std::cout << typeid(k).name() << ", " << sizeof(k) << "\n";
+            std::cout << "\n";
         }
 
-        cout << "Done\n";
+        std::cout << "Done\n";
     }
 }

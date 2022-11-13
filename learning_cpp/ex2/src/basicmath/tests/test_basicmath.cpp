@@ -3,8 +3,6 @@
 
 #include "mylib/adder.hpp"
 
-using namespace std;
-
 int main()
 {
     assert(bmath::add(2, 2) == 4);
@@ -12,5 +10,5 @@ int main()
     assert(bmath::add(9, 4) == 13);
     assert(bmath::add(4, 5) == 9);
 
-    cout << "All tests passed.\n";
+    std::cout << "All tests passed.\n";
 }
