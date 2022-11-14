@@ -107,7 +107,7 @@ myapp src\basicmath\src\array_utils.cpp
 
 # ex5
 
-Example of using `CMakeLists.txt` to generate multiple executable at once, memory leak, debugging function call stack. As seen by output warnings there was no warnings for memory leak.
+Example of using `CMakeLists.txt` to generate multiple executable at once, memory leak, debugging function call stack.
 
 ### Generate multiple executable with cmake
 
@@ -121,7 +121,7 @@ Build all executable files in build folder.
 
 ### Show Compiler Warning, Force to Fix Warnings Before Compilation in `memory_leak.cpp`
 
-Compile with clang++ with all diagnostics enabled.
+Compile with clang++ with all diagnostics enabled. As seen by output warnings there was no warnings for memory leak.
 
 > clang++ -Weverything ex5/src/memory_leak.cpp -o out
 
@@ -129,7 +129,7 @@ Treat warnings like error. This will not generate executable until errors fixed.
 
 > clang++ -Werror -Weverything ex5/src/memory_leak.cpp -o out
 
-Doing similar with `g++` to see warnings and attempting to compile with `-Werror` flag.
+Doing similar with `g++` to see warnings and attempting to compile with `-Werror` flag. Again there was no warnings for memory leak.
 
 > g++ -Wall -Wextra ex5/src/memory_leak.cpp -o out
 
@@ -166,6 +166,10 @@ List 10 lines around the hit break point.
 Print value of variable `a`.
 
 > print a
+
+Watch for change in variable `a`.
+
+> watch a
 
 Step in code and show code.
 
