@@ -134,3 +134,36 @@ Doing similar with `g++` to see warnings and attempting to compile with `-Werror
 > g++ -Wall -Wextra ex5/src/memory_leak.cpp -o out
 
 > g++ -Wall -Wextra -Werror ex5/src/memory_leak.cpp -o out
+
+### Debugging from terminal and VSCode for viewing call stack and variable change
+
+Debugging from terminal with [gdb](https://www.cprogramming.com/gdb.html). Add `-g` flag for gdb debugging.
+
+> g++ -std=c++17 -g -Wall -Wextra ex5/src/stack_frame_debug.cpp -o out
+
+> gdb out
+
+Add break points.
+
+> break 43
+
+> break 25
+
+Run program.
+
+> run
+
+List 10 lines around the hit break point.
+
+> list
+
+Print value of variable `a`.
+
+> print a
+
+Step in code and show code.
+
+> step
+> step
+> print a
+> list
