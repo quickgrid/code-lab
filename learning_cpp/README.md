@@ -137,7 +137,7 @@ Doing similar with `g++` to see warnings and attempting to compile with `-Werror
 
 ### Debugging from terminal and VSCode for call stack, variable change in `stack_frame_debug.cpp`
 
-Debugging from terminal with [gdb](https://www.cprogramming.com/gdb.html). Add `-g` flag for gdb debugging.
+Debugging from terminal with [gdb](https://www.cprogramming.com/gdb.html). [Resource](https://web.mit.edu/gnu/doc/html/gdb_8.html) for call stack and stack frame. Add `-g` flag for gdb debugging. Another faster option is to use vscode debug option.
 
 > g++ -std=c++17 -g -Wall -Wextra ex5/src/stack_frame_debug.cpp -o out
 
@@ -147,9 +147,15 @@ Add break points.
 
 > break 43
 
+> break 34
+
 > break 25
 
-Run program.
+> break 18
+
+> break 10
+
+Run program. If no breakpoints set it execute program and finish.
 
 > run
 
@@ -170,3 +176,33 @@ Step in code and show code.
 > print a
 
 > list
+
+Show all the program stack frames in call stack. It will show current function, line number and stack frames for the program in call stack.
+
+> backtrace
+
+Select a frame and move up to outer frame by 1.
+
+> frame 2
+
+> up 1
+
+Print verbose description of current frame.
+
+> info frame
+
+Print local variables of selected frame.
+
+> info locals
+
+Looking into local variable change. This will show the local value of `a`.
+
+> info locals
+
+> up
+
+> info locals
+
+Quit gdb.
+
+> quit
