@@ -164,6 +164,9 @@ Print value of variable `a`.
 Step in code and show code.
 
 > step
+ 
 > step
+ 
 > print a
+
 > list
