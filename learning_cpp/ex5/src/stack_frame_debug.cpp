@@ -4,25 +4,25 @@
 
 #include <iostream>
 
-int func1()
+int func1(int x)
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 1;
     return a;
 }
 
-int func2()
+int func2(int x)
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 2;
-    return func1();
+    return func1(11);
 }
 
 int func3()
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 3;
-    a = func2();
+    a = func2(7);
     return a;
     std::cout << __FUNCTION__ << " not reached here\n";
 }
