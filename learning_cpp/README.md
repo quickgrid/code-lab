@@ -135,7 +135,7 @@ Doing similar with `g++` to see warnings and attempting to compile with `-Werror
 
 > g++ -Wall -Wextra -Werror ex5/src/memory_leak.cpp -o out
 
-### Debugging from terminal and VSCode for viewing call stack and variable change
+### Debugging from terminal and VSCode for call stack, variable change in `stack_frame_debug.cpp`
 
 Debugging from terminal with [gdb](https://www.cprogramming.com/gdb.html). Add `-g` flag for gdb debugging.
 
