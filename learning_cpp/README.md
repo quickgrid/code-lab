@@ -4,8 +4,9 @@ Notes of my attempts to learn C++ more in depth.
 
 For windows LLVM, MinGW64, ninja, cmake, visual studio, vscode etc. installed or extracted to folder. Also system environment variables path set to path of `*.exe` files. Not all examples require all tools.
 
-Code structure is vscode visual studio clang format with attempt to follow google style guide where possible. 
-Header guard follows google style guide `<PROJECT>_<PATH>_<FILE>_H_` full path from project root.
+Code structure is vscode `Visual Studio` clang format with attempt to follow google style guide best practice where possible. Alternate code formatting if used will be `Chromium`. Header guard follows google style guide `<PROJECT>_<PATH>_<FILE>_H_` full path from project root.
+
+For examples clang version is `15.0.2` and gcc version is `12.2.0` is used. 
 
 # ex1
 
@@ -106,7 +107,7 @@ myapp src\basicmath\src\array_utils.cpp
 
 # ex5
 
-Example of using `CMakeLists.txt` to generate multiple executable at once, memory leak, debugging function call stack.
+Example of using `CMakeLists.txt` to generate multiple executable at once, memory leak, debugging function call stack. As seen by output warnings there was no warnings for memory leak.
 
 ### Generate multiple executable with cmake
 
