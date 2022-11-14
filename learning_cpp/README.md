@@ -37,11 +37,11 @@ For compilation with `g++`. Rest of the process to compile and run is same.
 
 Setting `cl.exe` path manually. Replace `YOUR_VERSION` with visual c++ compiler version.
 
-> cmake -DCMAKE_BUILD_TYPE:STRING=Debug "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" -SC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1 -BC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1\build
+> cmake -DCMAKE_BUILD_TYPE:STRING=Debug "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/YOUR_VERSION/bin/Hostx64/x64/cl.exe" -SC:\CodeLab\learning_cpp\ex1 -BC:\CodeLab\learning_cpp\ex1\build
 
 Without setting manually.
 
-> cmake -DCMAKE_BUILD_TYPE:STRING=Debug -SC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1 -BC:\Users\computer\Documents\GitHub\CodeLab\learning_cpp\ex1\build
+> cmake -DCMAKE_BUILD_TYPE:STRING=Debug -SC:\CodeLab\learning_cpp\ex1 -BC:\CodeLab\learning_cpp\ex1\build
 
 The build folder will contain `myapp.sln`, `myapp.vcxproj` etc. `myapp.sln` can be opened in visual studio and compile from it. The following command will compile and generate executable from terminal. 
 
@@ -103,3 +103,33 @@ Functions defined in both `array_utils.hpp`, `adder.hpp` share same namespace `b
 
 > g++ -O2 -std=c++17 "-Isrc\basicmath\include" src\basicmath\tests\test_array_declaration.cpp -o 
 myapp src\basicmath\src\array_utils.cpp
+
+# ex5
+
+Example of using `CMakeLists.txt` to generate multiple executable at once, memory leak, debugging function call stack.
+
+### Generate multiple executable with cmake
+
+Configure and generate project with given generator.
+
+> cmake -DCMAKE_BUILD_TYPE:STRING=Debug "-DCMAKE_C_COMPILER:FILEPATH=PATH_TO\clang.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=PATH_TO\clang++.exe" -S./ex5 -B./ex5/build -G Ninja
+
+Build all executable files in build folder.
+
+> cmake --build ./ex5/build/
+
+### Show Compiler Warning, Force to Fix Warnings Before Compilation in `memory_leak.cpp`
+
+Compile with clang++ with all diagnostics enabled.
+
+> clang++ -Weverything ex5/src/memory_leak.cpp -o out
+
+Treat warnings like error. This will not generate executable until errors fixed.
+
+> clang++ -Werror -Weverything ex5/src/memory_leak.cpp -o out
+
+Doing similar with `g++` to see warnings and attempting to compile with `-Werror` flag.
+
+> g++ -Wall -Wextra ex5/src/memory_leak.cpp -o out
+
+> g++ -Wall -Wextra -Werror ex5/src/memory_leak.cpp -o out
