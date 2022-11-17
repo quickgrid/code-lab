@@ -1,7 +1,7 @@
 /**
  * @file tail_recursion_debug.cpp
  * @author your name (you@domain.com)
- * @brief
+ * @brief Tail recursion example.
  * @version 0.1
  * @date 2022-11-14
  *
@@ -11,17 +11,8 @@
 
 #include <iostream>
 
-int func1(int x)
-{
-    if (!x)
-    {
-        return 0;
-    }
-    std::cout << x << "\n";
-    return func1(x - 1);
-}
-
-// Infinite loops.
+// Infinite loops stack overflow.
+// Can be seen on debug call stack keeps adding func2.
 int func2(int x)
 {
     if (!x)
@@ -34,7 +25,6 @@ int func2(int x)
 
 int main()
 {
-    func1(6);
-    // func2(6);
+    func2(6);
     return 0;
 }

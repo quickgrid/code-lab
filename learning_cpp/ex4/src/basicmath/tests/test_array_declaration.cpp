@@ -5,7 +5,7 @@
 int main()
 {
     std::cout << "App started\n";
-    const unsigned int &n = 6;
+    const unsigned int n = 6;
 
     std::cout << "Test 1\n";
     bmath::test_1d_array_dynamic_allocation(n);

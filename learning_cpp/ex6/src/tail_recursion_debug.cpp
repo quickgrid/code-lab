@@ -10,31 +10,68 @@
  */
 
 #include <iostream>
+#include <chrono>
+#include <functional>
+#include <variant>
 
-int func1(int x)
+// Non tail recursive factorial as control return to this function.
+// Also previous values are needed to calculate final result.
+int factorial_recursive(int x)
 {
-    if (!x)
+    if (x <= 0)
     {
-        return 0;
+        return 1;
     }
-    std::cout << x << "\n";
-    return func1(x - 1);
+    return x * factorial_recursive(x - 1);
 }
 
-// Infinite loops.
-int func2(int x)
+// Tail recursive factorial the last statement in return.
+// Returns calculated value without further operation on caller stack frame.
+int factorial_tail_recursive(int x, int result = 1)
 {
-    if (!x)
+    if (x <= 0)
     {
-        return 0;
+        return result;
     }
-    std::cout << x << "\n";
-    return func2(x) - 1;
+    return factorial_tail_recursive(x - 1, x * result);
+}
+
+void timing_func_reference(int (*func)(int), int val)
+{
+    std::cout << "START\n";
+    auto start = std::chrono::high_resolution_clock::now();
+    int result = func(val);
+    std::cout << result << "\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << duration.count() << "\n";
+    std::cout << "DONE\n";
+}
+
+// @todo fix error
+// template <typename... Args>
+void timing_func_functional(
+    // std::variant<std::function<int(int)>, std::function<int(int, int)>> func,
+    auto func,
+    // Args &&...val)
+    int val)
+{
+    std::cout << "START\n";
+    auto start = std::chrono::high_resolution_clock::now();
+    int result = func(val);
+    std::cout << result << "\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << duration.count() << "\n";
+    std::cout << "DONE\n";
 }
 
 int main()
 {
-    // func1(6);
-    func2(6);
+    int test_val = 10;
+    timing_func_functional(factorial_recursive, test_val);
+    timing_func_functional(factorial_tail_recursive, test_val);
+    timing_func_reference(&factorial_recursive, test_val);
+    // timing_func_reference(&factorial_tail_recursive, test_val);
     return 0;
 }
