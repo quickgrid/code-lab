@@ -4,7 +4,7 @@
 
 namespace bmath
 {
-    int add(const int &a, const int &b)
+    auto add(const int &a, const int &b) -> int
     {
         std::cout << a << ", " << b << "\n";
         std::cout << &a << ", " << &b << "\n";
