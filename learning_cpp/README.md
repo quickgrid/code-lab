@@ -240,3 +240,11 @@ In `stack_overflow.cpp` example in debug or with address sanitizer stack overflo
 ### Pass Function to Another Function in `tail_recursion_debug.cpp`
 
 Conversion of recursive fibonacci to tail recursive, function timing, passing function with reference and `std::function` and doxygen comments.
+
+### Diagnostics from [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) C++ Linter
+
+There are also various fix options like `--fix`, that can apply fixes to code. In vscode all checks can be enabled with chosen checks disabled. 
+
+> clang-tidy ex6/src/tail_recursion_debug.cpp --
+
+> clang-tidy "-checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus*" ex6/src/tail_recursion_debug.cpp --
