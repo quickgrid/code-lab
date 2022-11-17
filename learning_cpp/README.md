@@ -223,3 +223,17 @@ Quit gdb.
 
 Example of using address and undefined [sanitizers](https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation) for runtime memory and undefined error check. Also example of stack overflow, recursion to tail recursion conversion, execution timing with chrono, pass function reference to another function, pass function reference to another with `std::function`, [doxygen](https://www.cs.cmu.edu/~410/doc/doxygen.html) format comments.
 
+### Address and Undefined Sanitizers Usage
+
+These codes `nullptr_dereference.cpp`, `signed_int_overflow.cpp` and `uninitialized_variable_access.cpp` compiles, runs and produces results. Yet running with sanitizer options produces runtime error on mistakes.
+
+In `stack_overflow.cpp` example in debug or with address sanitizer stack overflow error is shown in run time. Code is same as below just name change.
+
+> clang++ -std=c++20 -g -O2 ex6/src/uninitialized_variable_access.cpp -o app.exe
+
+> ./app.exe
+
+> clang++ -std=c++20 -g -O2 ex6/src/uninitialized_variable_access.cpp -o app.exe "-fsanitize=address,undefined" -fno-omit-frame-pointer
+
+> ./app.exe
+
