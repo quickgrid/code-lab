@@ -210,3 +210,8 @@ Looking into local variable change. This will show the local value of `a`.
 Quit gdb.
 
 > quit
+
+# ex6
+
+Example of using address and undefined [sanitizers](https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation) for runtime memory and undefined error check. Also example of stack overflow, recursion to tail recursion conversion, execution timing with chrono, pass function reference to another function, pass function reference to another with `std::function`.
+
