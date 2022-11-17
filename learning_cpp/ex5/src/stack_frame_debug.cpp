@@ -4,21 +4,21 @@
 
 #include <iostream>
 
-int func1(int x)
+auto func1(int x) -> int
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 1;
     return a;
 }
 
-int func2(int x)
+auto func2(int x) -> int
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 2;
     return func1(11);
 }
 
-int func3()
+auto func3() -> int
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 3;
@@ -27,7 +27,7 @@ int func3()
     std::cout << __FUNCTION__ << " not reached here\n";
 }
 
-int func4()
+auto func4() -> int
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 4;
@@ -37,7 +37,7 @@ int func4()
     std::cout << __FUNCTION__ << " ended\n";
 }
 
-int main()
+auto main() -> int
 {
     int a = 5;
     func4();

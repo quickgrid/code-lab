@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-int main()
+auto main() -> int
 {
     // Memory leak and unused variables.
     int *d = new int[5]{1, 2, 3, 4, 5};
