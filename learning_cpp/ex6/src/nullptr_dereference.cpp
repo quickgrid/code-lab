@@ -4,5 +4,5 @@
 int main()
 {
     int *p = nullptr;
-    std::cout << p << *p << "\n";
+    std::cout << p << " " << *p << "\n";
 }
