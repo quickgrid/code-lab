@@ -14,8 +14,14 @@
 #include <functional>
 #include <variant>
 
-// Non tail recursive factorial as control return to this function.
-// Also previous values are needed to calculate final result.
+/**
+ * @brief Non tail recursive factorial as control return to this function.
+ * 
+ * Also previous values are needed to calculate final result.
+ * 
+ * @param x 
+ * @return int calculated factorial.
+ */
 int factorial_recursive(int x)
 {
     if (x <= 0)

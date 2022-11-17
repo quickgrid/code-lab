@@ -19,7 +19,6 @@ int func2(int x)
     {
         return 0;
     }
-    std::cout << x << "\n";
     return func2(x) - 1;
 }
 
