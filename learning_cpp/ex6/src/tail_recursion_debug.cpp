@@ -16,10 +16,10 @@
 
 /**
  * @brief Non tail recursive factorial as control return to this function.
- * 
+ *
  * Also previous values are needed to calculate final result.
- * 
- * @param x 
+ *
+ * @param x
  * @return int calculated factorial.
  */
 int factorial_recursive(int x)
@@ -74,7 +74,7 @@ void timing_func_functional(
 
 int main()
 {
-    int test_val = 10;
+    const int test_val = 10;
     timing_func_functional(factorial_recursive, test_val);
     timing_func_functional(factorial_tail_recursive, test_val);
     timing_func_reference(&factorial_recursive, test_val);
