@@ -22,7 +22,7 @@
  * @param x
  * @return int calculated factorial.
  */
-int factorial_recursive(int x)
+auto factorial_recursive(int x) -> int
 {
     if (x <= 0)
     {
@@ -33,7 +33,7 @@ int factorial_recursive(int x)
 
 // Tail recursive factorial the last statement in return.
 // Returns calculated value without further operation on caller stack frame.
-int factorial_tail_recursive(int x, int result = 1)
+auto factorial_tail_recursive(int x, int result = 1) -> int
 {
     if (x <= 0)
     {
@@ -72,7 +72,7 @@ void timing_func_functional(
     std::cout << "DONE\n";
 }
 
-int main()
+auto main() -> int
 {
     const int test_val = 10;
     timing_func_functional(factorial_recursive, test_val);

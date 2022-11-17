@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main()
+auto main() -> int
 {
     int *p;
     std::cout << p << " " << *p << "\n";

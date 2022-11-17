@@ -13,7 +13,7 @@
 
 // Infinite loops stack overflow.
 // Can be seen on debug call stack keeps adding func2.
-int func2(int x)
+auto func2(int x) -> int
 {
     if (!x)
     {
@@ -22,8 +22,9 @@ int func2(int x)
     return func2(x) - 1;
 }
 
-int main()
+auto main() -> int
 {
-    func2(6);
+    const int val = 6;
+    func2(val);
     return 0;
 }
