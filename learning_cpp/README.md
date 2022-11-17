@@ -243,7 +243,7 @@ Conversion of recursive fibonacci to tail recursive, function timing, passing fu
 
 ### Diagnostics from [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) C++ Linter
 
-There are also various fix options like `--fix`, that can apply fixes to code. In vscode all checks can be enabled with chosen checks disabled. 
+There are also various fix options like `--fix`, that can apply fixes to code. In vscode settings searching `clang tidy` all checks can be enabled with chosen checks disabled. It shows more errors and warnings in UI and problems sections when enabled. 
 
 > clang-tidy ex6/src/tail_recursion_debug.cpp --
 
