@@ -6,7 +6,7 @@ For windows LLVM, MinGW64, ninja, cmake, visual studio, vscode etc. installed or
 
 Code structure is vscode `Visual Studio` clang format with attempt to follow google style guide best practice where possible. Alternate code formatting if used will be `Chromium`. Header guard follows google style guide `<PROJECT>_<PATH>_<FILE>_H_` full path from project root.
 
-For examples clang version is `15.0.2` and gcc version is `12.2.0` is used. 
+For examples clang version is `15.0.2`, gcc version is `12.2.0` is used and C++20 where possible (`-std=c++20` in compiler).
 
 # ex1
 
