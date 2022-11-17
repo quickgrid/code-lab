@@ -8,7 +8,7 @@ auto func1(int x) -> int
 {
     std::cout << __FUNCTION__ << " started\n";
     int a = 1;
-    return a;
+    return x;
 }
 
 auto func2(int x) -> int
@@ -39,7 +39,7 @@ auto func4() -> int
 
 auto main() -> int
 {
-    int a = 5;
+    const int a = 5;
     func4();
     return 0;
 }
