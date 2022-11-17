@@ -78,6 +78,14 @@ Disassemble object code with `objdump`. First the object file needs to be genera
 
 > objdump -d myapp.o
 
+### Using Nvidia NVCC Compiler
+
+It comes with cuda toolkit and as of now should be able to compile `C++17` code.
+
+> nvcc ex1/src/myapp.cpp -o myapp
+
+> ./myapp
+
 # ex2
 
 This project contains with multiple c++ source, header files in various directory. This project directory was structured somewhat following opencv source code. This example uses namespaces to prevent collision with other libraries, includes headers from include directory and manual code testing with assertion etc. 
@@ -213,5 +221,22 @@ Quit gdb.
 
 # ex6
 
-Example of using address and undefined [sanitizers](https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation) for runtime memory and undefined error check. Also example of stack overflow, recursion to tail recursion conversion, execution timing with chrono, pass function reference to another function, pass function reference to another with `std::function`.
+Example of using address and undefined [sanitizers](https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation) for runtime memory and undefined error check. Also example of stack overflow, recursion to tail recursion conversion, execution timing with chrono, pass function reference to another function, pass function reference to another with `std::function`, [doxygen](https://www.cs.cmu.edu/~410/doc/doxygen.html) format comments.
 
+### Address and Undefined Sanitizers Usage
+
+These codes `nullptr_dereference.cpp`, `signed_int_overflow.cpp` and `uninitialized_variable_access.cpp` compiles, runs and produces results. Yet running with sanitizer options produces runtime error on mistakes.
+
+In `stack_overflow.cpp` example in debug or with address sanitizer stack overflow error is shown in run time. Code is same as below just name change.
+
+> clang++ -std=c++20 -g -O2 ex6/src/uninitialized_variable_access.cpp -o app.exe
+
+> ./app.exe
+
+> clang++ -std=c++20 -g -O2 ex6/src/uninitialized_variable_access.cpp -o app.exe "-fsanitize=address,undefined" -fno-omit-frame-pointer
+
+> ./app.exe
+
+### Pass Function to Another Function in `tail_recursion_debug.cpp`
+
+Conversion of recursive fibonacci to tail recursive, function timing, passing function with reference and `std::function` and doxygen comments.
