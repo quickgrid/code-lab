@@ -2,6 +2,7 @@
 
 Repository of my AI related codes. Some notebooks may take a long time to load in [nbviewer](https://nbviewer.jupyter.org/).
 
+<!--
 ## `Structure`
 
 | Name | Description |
@@ -16,6 +17,8 @@ Repository of my AI related codes. Some notebooks may take a long time to load i
 ## `Todo`
 
 - Move some files, folders from `OLD_FILES` to main folder after organizing.
+-->
+
 
 ## `Parent Repo`
 
